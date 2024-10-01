@@ -10,6 +10,7 @@ namespace LektionWordGuess
         static string[] hardwords = { "teorihandbok", "hjulverkstaden", "huvudbonad", "shackmatt", "presentation" };
         static Random random = new Random();
         static int highscore = 0;
+        static string[] args;
         static void Main(string[] args)
         {
             while (true)
@@ -40,8 +41,8 @@ namespace LektionWordGuess
         {
             int points = 0;
             Console.WriteLine("Do you want " +
-                              "\n1: easy mode" +
-                              "\n2: hard mode");
+                              "\n1: Easy mode" +
+                              "\n2: Hard mode");
 
             int diff = int.Parse(Console.ReadLine());
             string wordToGuess = "";
@@ -113,6 +114,10 @@ namespace LektionWordGuess
 
                     }
 
+                    if(attemptsLeft == 2)
+                    {
+                        GiveUp(wordToGuess);
+                    }
 
 
                     if (new string(guessedWord) == wordToGuess)
@@ -141,12 +146,24 @@ namespace LektionWordGuess
 
         }
 
+        static void GiveUp(string wordToGuess)
+        {
+
+            Console.WriteLine("Do you want to give up?");
+            string forfeit = Console.ReadLine();
+            if(forfeit == "yes")
+            {
+                Console.WriteLine("The word was " + wordToGuess);
+                Main(args);
+            }
+        }
+
         static void Clue( string wordToGuess, char[] guessedWord)
         {
             string checkguess = new string(guessedWord);
             Console.WriteLine("Do you want a clue? ");
-            string test = Console.ReadLine(); 
-            if(test == "yes")
+            string theclue = Console.ReadLine(); 
+            if(theclue == "yes")
             {
                foreach(char c in wordToGuess)
                 {
